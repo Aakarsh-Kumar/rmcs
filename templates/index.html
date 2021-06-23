@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Raja Mantri Chor Sipahi</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="static/fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body bgcolor="grey">
+    <div class="main">
+
+        <div class="container">
+            <form class="appointment-form" id="appointment-form" action="/room" method="POST" >
+                <h2>Enter Room ID</h2>
+                <h3>{{reason}}</h3>
+                <div class="form-group-1">
+                    <input type="number" name="roomid" id="roomid" placeholder="Room ID" required autofocus /> 
+                </div>
+                <div class="form-submit">
+                    <input type="submit" name="submit" id="submit" class="submit" value="Join Room" />
+                </div>
+                <a href="/new"><h3>New Room</h3></a>
+            </form>
+        </div>
+    </div>
+    <!-- JS -->
+    <script src="static/vendor/jquery/jquery.min.js"></script>
+    <script src="static/js/main.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>
