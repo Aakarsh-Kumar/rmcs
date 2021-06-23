@@ -1,5 +1,5 @@
 #==Imports==
-from flask import Flask, render_template, redirect, Request
+from flask import Flask, render_template, redirect, request
 import mysql.connector
 import random
 
@@ -35,13 +35,13 @@ def sendToRoom():
                             passwd="af1b46b6",
                             database="heroku_2755bac09e746fb")
     createTable1dbCur=createTable1dbCon.cursor()
-    if Request.method == 'POST':
+    if request.method == 'POST':
         createTable1dbCur.execute("SELECT room_id FROM rooms")
         rooms_available=createTable1dbCur.fetchall()
         createTable1dbCon.close()
         print(rooms_available)
-        if str(Request.form['roomid'])+',' in str(rooms_available):
-            return redirect(f"/room/{Request.form['roomid']}")
+        if str(request.form['roomid'])+',' in str(rooms_available):
+            return redirect(f"/room/{request.form['roomid']}")
         else:
             return redirect("/")
     else:
