@@ -1,7 +1,44 @@
-<link rel="stylesheet" href="static/css/style.css">
-<div class="card">
-    <div class="container">
-      <h4><b>John Doe</b></h4>
-      <p>Architect & Engineer</p>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <meta http-equiv="refresh" content="20"> -->
+    <title>Raja Mantri Chor Sipahi</title>
+    <!-- <link rel="stylesheet" href="static/css/style.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/card.css">
+    <style>
+      .wrapper{
+         display: grid;
+         grid-template-columns: 30% 30% 30%;
+         grid-template-rows: 50% 50%;
+         grid-gap: 1em;
+      }
+
+      .wrapper > div{
+        background: #eee;
+        padding: 1em;
+      }
+    </style>
+</head>
+<body>
+  <div class="wrapper">
+    
+    {% for datas in lst %}
+    
+    <div class="card" align="left">
+      <img src="img.jpg" alt="John" style="width:100%">
+      <h1 id= "nice">John Doe</h1>
+      <p class="title">CEO & Founder, Example</p>
+      <p>Harvard University</p>
+      <a href="#"><i class="fa fa-dribbble"></i></a>
+      <a href="#"><i class="fa fa-twitter"></i></a>
+      <a href="#"><i class="fa fa-linkedin"></i></a>
+      <a href="#"><i class="fa fa-facebook"></i></a>
+      <p><button>Contact</button></p>
+      </div>
+    {% endfor %}
   </div>
+<!--==========================  -->
+
+</body>
+</html>

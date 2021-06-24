@@ -1,4 +1,5 @@
 #==Imports==
+import time
 from flask import Flask, render_template, redirect, request
 import mysql.connector
 import random
@@ -30,38 +31,40 @@ def new():
 
 @app.route("/room", methods=['POST','GET'])
 def sendToRoom():
-    createTable1dbCon=mysql.connector.connect(host="us-cdbr-east-04.cleardb.com",
-                            user="b5ace312629951",
-                            passwd="af1b46b6",
-                            database="heroku_2755bac09e746fb")
-    createTable1dbCur=createTable1dbCon.cursor()
+    # time.sleep(2)
+    # createTable1dbCon=mysql.connector.connect(host="us-cdbr-east-04.cleardb.com",
+    #                         user="b5ace312629951",
+    #                         passwd="af1b46b6",
+    #                         database="heroku_2755bac09e746fb")
+    # createTable1dbCur=createTable1dbCon.cursor()
     if request.method == 'POST':
-        createTable1dbCur.execute("SELECT room_id FROM rooms")
-        rooms_available=createTable1dbCur.fetchall()
-        createTable1dbCon.close()
-        print(rooms_available)
-        if str(request.form['roomid'])+',' in str(rooms_available):
-            return redirect(f"/room/{request.form['roomid']}")
-        else:
-            return redirect("/")
+        return redirect(f"/room/{request.form['roomid']}")
     else:
-        return redirect("/")
+        return error_404("as")
 
 @app.route("/room/<GetRoom_id>",methods=['GET','POST'])
 def join_room(GetRoom_id):
-    createTable1dbCon=mysql.connector.connect(host="us-cdbr-east-04.cleardb.com",
-                            user="b5ace312629951",
-                            passwd="af1b46b6",
-                            database="heroku_2755bac09e746fb")
-    createTable1dbCur=createTable1dbCon.cursor()
-    createTable1dbCur.execute("SELECT room_id FROM rooms")
-    rooms_available=createTable1dbCur.fetchall()
-    
-    createTable1dbCon.close()
-    if GetRoom_id in str(rooms_available)+',':
-        return GetRoom_id
-    else:
+    if GetRoom_id.isdigit():
+        createTable1dbCon=mysql.connector.connect(host="us-cdbr-east-04.cleardb.com",
+                                user="b5ace312629951",
+                                passwd="af1b46b6",
+                                database="heroku_2755bac09e746fb")
+        createTable1dbCur=createTable1dbCon.cursor()
+        createTable1dbCur.execute("SELECT * FROM rooms")
+        rooms_available=createTable1dbCur.fetchall()
+        
+        for i in rooms_available:
+            if int(GetRoom_id) in rooms_available[rooms_available.index(i)]:
+                if rooms_available[rooms_available.index(i)][1] < 4:
+                    createTable1dbCur.execute(f"UPDATE rooms SET members={rooms_available[rooms_available.index(i)][1]+1} WHERE room_id={rooms_available[rooms_available.index(i)][0]}")
+                    createTable1dbCon.commit()
+                    createTable1dbCon.close()
+                    return render_template("game.html",lst=[1,2,3,4,5,6])
+                else:
+                    return redirect("/")
         return redirect("/")
+    else:
+        return "RUKO JARA SABAR KARO/ HAATH SE LIKHNA BAND KARO... URL"
     
 @app.errorhandler(404)
 def error_404(e):
