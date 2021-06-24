@@ -40,7 +40,7 @@ def sendToRoom():
     if request.method == 'POST':
         return redirect(f"/room/{request.form['roomid']}")
     else:
-        return error_404("as")
+        return error_404("/room")
 
 @app.route("/room/<GetRoom_id>",methods=['GET','POST'])
 def join_room(GetRoom_id):
