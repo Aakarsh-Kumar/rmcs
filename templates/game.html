@@ -22,23 +22,39 @@
 </head>
 <body>
   <div class="wrapper">
-    
-    {% for datas in lst %}
-    
-    <div class="card" align="left">
-      <img src="/static/img/aakarsh.jpeg"  height="250" alt="John" style="width:100%">
-      <h1 id= "nice">Aakarsh</h1>
-      <p class="title">CEO & Founder, PD</p>
-      <p>Passionate Developers</p>
-      <a href="mailto:passionatedevelopers25@gmail.com" target="_blank"><i class="fa fa-dribbble"></i></a>
-      <a href="mailto:passionatedevelopers25@gmail.com" target="_blank"><i class="fa fa-twitter"></i></a>
-      <a href="mailto:passionatedevelopers25@gmail.com" target="_blank"><i class="fa fa-linkedin"></i></a>
-      <a href="mailto:passionatedevelopers25@gmail.com" target="_blank"><i class="fa fa-facebook"></i></a>
-      <p><a href="https://akpiano.herokuapp.com" target="_blank"><button type="button">Contact</button></a></p>
-      </div>
-    {% endfor %}
+    <div class="card">
+      <h2 id=player1name>Name1</h4>
+      <h3 id=player1points>0 pts</h3>
+    </div>
+    <div class="card">
+      <h2 id=player2name>Name2</h4>
+      <h4 id=player2points>0 pts</h4>
+    </div>
+    <div class="card">
+      <h2 id=player3name>Name3</h4>
+      <h4 id=player3points>0 pts</h4>
+    </div>
+    <div class="card">
+      <h2 id=player4name>Name4</h4>
+      <h4 id=player4points>0 pts</h4>
+    </div>
   </div>
 <!--==========================  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf-8">
+    var socket = io();
+    var data = JSON.parse('{{data | tojson}}');
+    socket.on('connect', function() {
+        socket.emit('join',data);
+    });
+    socket.on('joined',function(data){
+      console.log(data)
+      document.getElementById('player1name').innerHTML = data['username1'];
+      document.getElementById('player2name').innerHTML = data['username2'];
+      document.getElementById('player3name').innerHTML = data['username3'];
+      document.getElementById('player4name').innerHTML = data['username4'];
+    });
 
+</script>
 </body>
 </html>

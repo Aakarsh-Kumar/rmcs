@@ -16,21 +16,34 @@
     <div class="main">
 
         <div class="container">
-            <form class="appointment-form" id="appointment-form" action="/room" method="POST" >
+            <form class="appointment-form" id="appointment-form" action="/room" method="GET" >
                 <h2>Enter Room ID</h2>
-                <h3>{{reason}}</h3>
                 <div class="form-group-1">
-                    <input type="number" name="roomid" id="roomid" placeholder="Room ID" required autofocus /> 
+                    <input type="text" name="username" id="username" placeholder="Username" required autofocus /> 
+                    <input type="number" name="roomid" id="roomid" placeholder="Room ID" required/> 
                 </div>
                 <div class="form-submit">
                     <input type="submit" name="submit" id="submit" class="submit" value="Join Room" />
                 </div>
-                <a href="/new" target="_blank"><h3>New Room</h3></a>
+                <a href="javascript:void(0)" onclick="return getusername()">
+                    <h3>New Room</h3>
+                </a>
+                <!-- <a href="/new?username=Host" target="_blank"><h3>New Room</h3></a> -->
             </form>
         </div>
     </div>
     <!-- JS -->
     <script src="/static/vendor/jquery/jquery.min.js"></script>
     <script src="/static/js/main.js"></script>
+    <script>
+        function getusername(){
+            var val = document.getElementById("appointment-form").elements.namedItem("username").value;
+            if (val.replaceAll(/\s/g,'')==='') {
+                alert("Please Enter Username!");
+            } else {
+                window.open('new?username='+val, '_self')
+            }
+        }
+    </script>
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>
