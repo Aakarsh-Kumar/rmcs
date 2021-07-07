@@ -122,4 +122,4 @@ def error_404(e):
     return render_template("404.html")
 #==__name__=====================
 if __name__ == '__main__':
-    socketio.run(app)
+    app.run()
